@@ -1,7 +1,7 @@
 import got from "got";
-import expat, {Parser} from "node-expat";
+import {Parser} from "node-expat";
 import EventEmitter from "events";
-import {XmlAnalyser} from "./xml.analyser";
+import {XmlAnalyser} from "../xml-analyser/xml.analyser";
 
 export class AnalyseXmlRequestHandler {
 
@@ -19,11 +19,11 @@ export class AnalyseXmlRequestHandler {
     }
 
     private createParser(): Parser {
-        return new expat.Parser("UTF-8")
+        return new Parser("UTF-8")
             .on("startElement", (name, attrs) => this.nodes.push(attrs))
     }
 }
 
 const analyser = new AnalyseXmlRequestHandler(new XmlAnalyser());
 analyser.analysisEmitter.on("analysisComplete", (data) => console.log("Analysis complete", data));
-analyser.handle("https://merapar-assessment-task.s3.eu-central-1.amazonaws.com/arabic-posts.xml");
+analyser.handle("https://merapar-assessment-task.s3.eu-central-1.amazonaws.com/3dprinting-posts.xml");

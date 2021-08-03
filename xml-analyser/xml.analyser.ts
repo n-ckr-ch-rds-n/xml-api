@@ -1,9 +1,10 @@
 import {XmlAnalysis} from "./xml.analysis";
+import {PostData} from "./post.data";
 
 export class XmlAnalyser {
 
     toXmlAnalysis(nodes: any[]): XmlAnalysis {
-        const postNodes = nodes.filter(node => !!node.Id);
+        const postNodes: PostData[] = nodes.filter(node => !!node.Id);
         return {
             firstPost: postNodes[0].CreationDate,
             lastPost: postNodes[postNodes.length - 1].CreationDate,

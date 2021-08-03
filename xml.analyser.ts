@@ -9,8 +9,13 @@ export class XmlAnalyser {
             lastPost: postNodes[postNodes.length - 1].CreationDate,
             totalPosts: postNodes.length,
             totalAcceptedPosts: postNodes.filter(node => !!node.AcceptedAnswerId).length,
-            avgScore: 80
+            avgScore: this.toAverageScore(postNodes)
         };
+    }
+
+    private toAverageScore(nodes: any[]): number {
+        const total = nodes.reduce((pre, curr) => pre += parseInt(curr.Score), 0);
+        return total / nodes.length;
     }
 
 }

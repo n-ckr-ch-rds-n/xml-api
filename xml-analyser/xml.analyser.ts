@@ -14,8 +14,8 @@ export class XmlAnalyser {
         };
     }
 
-    private toAverageScore(nodes: any[]): number {
-        const total = nodes.reduce((pre, curr) => pre += parseInt(curr.Score), 0);
+    private toAverageScore(nodes: PostData[]): number {
+        const total = nodes.reduce((acc, curr) => acc += parseInt(curr.Score), 0);
         return total / nodes.length;
     }
 

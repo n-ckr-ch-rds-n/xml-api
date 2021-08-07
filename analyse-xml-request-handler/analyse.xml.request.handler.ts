@@ -23,7 +23,7 @@ export class AnalyseXmlRequestHandler {
             .on("startElement", (name, attrs) => this.nodes.push(attrs))
     }
 }
-
-const analyser = new AnalyseXmlRequestHandler(new XmlAnalyser());
-analyser.analysisEmitter.on("analysisComplete", (data) => console.log("Analysis complete", data));
-analyser.handle("https://merapar-assessment-task.s3.eu-central-1.amazonaws.com/3dprinting-posts.xml");
+//
+// const analyser = new AnalyseXmlRequestHandler(new XmlAnalyser());
+// analyser.analysisEmitter.on("analysisComplete", (data) => console.log("Analysis complete", data));
+// analyser.handle("https://merapar-assessment-task.s3.eu-central-1.amazonaws.com/3dprinting-posts.xml");

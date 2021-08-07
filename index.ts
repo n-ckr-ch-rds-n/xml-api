@@ -17,8 +17,7 @@ app.post("/analyse", async (req, res) => {
             res.status(500).json(e);
         }
     } else {
-        const error = new Error();
-        error.message = "Bad request: body must contain a valid URL";
+        const error = new Error("Bad request: body must contain a valid URL");
         res.status(400).json(error);
     }
 })

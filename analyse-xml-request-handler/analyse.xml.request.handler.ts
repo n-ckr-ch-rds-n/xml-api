@@ -9,14 +9,15 @@ export class AnalyseXmlRequestHandler {
     private nodes: any[] = [];
 
     constructor(private parser: Parser, private analyser: XmlAnalyser) {
-        parser.on("startElement", (name, attrs) => this.nodes.push(attrs));
     }
 
     async handle(url: string): Promise<XmlAnalysis> {
+        this.parser.on("startElement", (name, attrs) => this.nodes.push(attrs));
         const parsedXmlStream = got.stream(url).pipe(this.parser);
         await waitFor("close", parsedXmlStream);
         const analysis = this.analyser.toXmlAnalysis(this.nodes);
         this.nodes = [];
+        this.parser.reset();
         return analysis;
     }
 }

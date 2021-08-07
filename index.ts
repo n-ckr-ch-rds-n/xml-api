@@ -1,22 +1,15 @@
 import express from "express";
 import {AnalyseXmlRequestHandler} from "./analyse-xml-request-handler/analyse.xml.request.handler";
 import {XmlAnalyser} from "./xml-analyser/xml.analyser";
-import {waitFor} from "wait-for-event";
+import {Parser} from "node-expat";
 
 const app = express();
 app.use(express.json());
-const analyser = new XmlAnalyser();
-const handler = new AnalyseXmlRequestHandler(analyser);
-
-app.get("/", async (req, res) => {
-    res.send("Hello old bean");
-})
+const handler = new AnalyseXmlRequestHandler(new Parser("UTF-8"), new XmlAnalyser());
 
 app.post("/analyse", async (req, res) => {
-    handler.analysisEmitter.on("analysisComplete", (analysis) => res.json(analysis));
-    handler.handle(req.body.url);
-    await waitFor("analysisComplete", handler.analysisEmitter)
-    // res.send("BEEP");
+    const analysis = await handler.handle(req.body.url);
+    res.json(analysis);
 })
 
 const port = process.env.port || 3000;

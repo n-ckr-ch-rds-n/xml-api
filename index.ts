@@ -8,8 +8,12 @@ app.use(express.json());
 const handler = new AnalyseXmlRequestHandler(new Parser("UTF-8"), new XmlAnalyser());
 
 app.post("/analyse", async (req, res) => {
-    const analysis = await handler.handle(req.body.url);
-    res.json(analysis);
+    try {
+        const analysis = await handler.handle(req.body.url);
+        res.json(analysis);
+    } catch (e) {
+        res.status(500).json(e);
+    }
 })
 
 const port = process.env.port || 3000;

@@ -16,7 +16,7 @@ export class XmlAnalyser {
     }
 
     private isPostDataNode(node: any): boolean {
-        return node.Id && node.CreationDate;
+        return node.Id && node.CreationDate && node.Score;
     }
 
     private toAverageScore(nodes: PostData[]): number {

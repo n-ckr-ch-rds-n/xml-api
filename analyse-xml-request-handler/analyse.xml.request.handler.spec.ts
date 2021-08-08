@@ -1,45 +1,26 @@
-import mockserver from "mockserver-node";
 import {AnalyseXmlRequestHandler} from "./analyse.xml.request.handler";
 import {Parser} from "node-expat";
 import {XmlAnalyser} from "../xml-analyser/xml.analyser";
-import {mockServerClient} from "mockserver-client";
+import {AnalysisDetails} from "../xml-analyser/analysis.details";
+import {mockServerConfig} from "./mock.server.config";
+import {AnalysisFailed} from "../xml-analyser/analysis.failed";
 
 describe("Analyse XML request handler", () => {
     let handler: AnalyseXmlRequestHandler;
-    const serverPort = 1080;
-
-    beforeAll(() => {
-        mockserver.start_mockserver({
-            serverPort,
-            trace: true
-        })
-        mockServerClient("localhost", serverPort).mockAnyResponse({
-            httpRequest: {
-                method: "GET",
-                path: "/foobar.xml"
-            },
-            httpResponse: {
-                statusCode: 200,
-                headers: {},
-                body: "foobar"
-            }
-        })
-    })
+    const {port, validPostDataPath, invalidPostDataPath} = mockServerConfig;
 
     beforeEach(() => {
         handler = new AnalyseXmlRequestHandler(new Parser("UTF-8"), new XmlAnalyser());
     })
 
-    it("Handles XML analysis requests", async () => {
-        const analysis = await handler.handle(`https://localhost:${serverPort}/foobar.xml`);
-        console.log("analysis", analysis);
-        expect(true).toBe(true);
+    it("Analyses post data xml docs", async () => {
+        const analysis = await handler.handle(`http://localhost:${port}/${validPostDataPath}`);
+        expect(!!(analysis.details as AnalysisDetails).firstPost).toBe(true);
     })
 
-    afterAll(() => {
-        mockserver.stop_mockserver({
-            serverPort
-        })
+    it("Returns an empty analysis if XML does not contain post data", async () => {
+        const analysis = await handler.handle(`http://localhost:${port}/${invalidPostDataPath}`);
+        expect(analysis.details).toBe(AnalysisFailed.NoData);
     })
 
 })

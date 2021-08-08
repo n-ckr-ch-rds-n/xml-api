@@ -15,6 +15,7 @@
     "@types/node-expat": "^2.3.1",
     "@types/valid-url": "^1.0.3",
     "jest": "^27.0.6",
+    "mockserver-client": "^5.11.2",
     "mockserver-node": "^5.11.2",
     "nodemon": "^2.0.12",
     "ts-jest": "^27.0.4",

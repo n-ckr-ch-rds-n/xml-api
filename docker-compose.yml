@@ -6,6 +6,7 @@ services:
       target: base
     volumes:
       - ./src:/home/node/app/src
+      - /home/node/app/node_modules
       - ./nodemon.json:/home/node/app/nodemon.json
     container_name: xml-api
     expose:

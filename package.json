@@ -5,7 +5,8 @@
   "main": "index.ts",
   "scripts": {
     "test": "npx jest",
-    "start": "ts-node index.ts"
+    "dev": "nodemon",
+    "build": "tsc -p ."
   },
   "author": "",
   "license": "ISC",

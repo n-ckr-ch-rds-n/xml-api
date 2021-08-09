@@ -1,6 +1,6 @@
 {
   "verbose": true,
-  "watch": ["**/*.ts", "**/*.json"],
+  "watch": ["src/**/*.ts", "src/**/*.json"],
   "ignore": ["**/*.spec.ts"],
   "execMap": {
     "ts": "node --inspect=0.0.0.0:9229 --nolazy -r ts-node/register"

@@ -2,10 +2,10 @@
   "name": "xml-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "scripts": {
     "test": "npx jest",
-    "dev": "nodemon",
+    "dev": "nodemon src/index.ts",
     "build": "tsc -p .",
     "start": "NODE_PATH=./dist node dist/index.js"
   },

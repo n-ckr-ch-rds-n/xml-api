@@ -6,7 +6,8 @@
   "scripts": {
     "test": "npx jest",
     "dev": "nodemon",
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "start": "NODE_PATH=./dist node dist/index.js"
   },
   "author": "",
   "license": "ISC",

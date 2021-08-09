@@ -9,7 +9,7 @@ services:
     volumes:
       - ./:/home/node/app
       - ./nodemon.json:/home/node/app/nodemon.json
-    container_name: ts-node-docker
+    container_name: xml-api
     expose:
       - '3000'
     ports:
